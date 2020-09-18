@@ -165,9 +165,13 @@ $ sudo apt install -y git build-essential net-tools libxml2-dev
  - ボタン電池を使用しない方は、スリーブモードのまま事前に太陽光または白熱電球で3時間以上蓄電しておいてください。（必須）
  - 爪楊枝、または伸ばしたクリップ等、Multi Sensorのボタンを押すピン（必須）
  - ボタン電池 CR1632（オプション）
- - NFCが利用できるスマホまたはiPhone（オプション）
-以下のURLで紹介のEnOcean Toolをインストールして使用します。
-https://www.enocean.com/en/products/enocean-software/enocean-tool/
+ - NFCが利用できるスマホまたはiPhone（オプション、シャープ製、ソニー製等の一部国産のスマホは利用出来ません）<br/>
+    以下のURLで紹介のEnOcean Toolをインストールして使用します。<br/>
+    https://www.enocean.com/en/products/enocean-software/enocean-tool/
+
+ - 参考：EnOcean NFC Configurator（NFCカードライターとツール）<br/>
+  https://www.enocean.com/en/support/download/
+  <br/>
 
 ![EnOceanマルチセンサー STM550J](image/stm550jp75.jpg)
 ##### 写真：EnOceanマルチセンサー STM550J
@@ -206,7 +210,7 @@ Windows PC でDolphinView Advanceを動作させて、マルチセンサーの�
 
 ### DolphinView Advanced のインストール
 
-Windows PCで操作すて、DolphinView Advancedは以下のURLからダウンロードしてインストールします。ダウンロード時にはメールアドレスの登録が必要です。
+Windows PCで操作して、DolphinView Advancedは以下のURLからダウンロードしてインストールします。ダウンロード時にはメールアドレスの登録が必要です。
 https://www.enocean.com/en/support/download/
 
 ダウンロード完了後 **USB400Jを装着して** 、DolphinViewAdvanced_3880.exeを起動してDolphinView Advanced をインストールします。すでに DolphinView Advanced インストールしている場合は、上書きインストールされます。
@@ -275,8 +279,7 @@ DolphinViewを動作させたまま、マルチセンサーのLEARNボタンを�
 
 今回のセミナーで利用するゲートウェイソフトウェアは、株式会社デバイスドライバーズが販売している、**E-Kit EnOcean ゲートウェイ** に搭載のプログラムです。　基本的にはオープンソースのプログラムですが、EnOcean Alliance が持つ **IP** 規定により、非会員の業務での利用が制限される部分に関してはバイナリーライブラリとして公開しています。
 
-ゲートウェイのGUI部分のソースコードは、「ゲートウェイ開発キット」として販売しています。
-全ソースコードは、会員企業向けに販売しています。
+ゲートウェイのGUI部分のソースコードは、「ゲートウェイ開発キット」として販売しています。全ソースコードは、会員企業向けに販売しています。
 
 <br/>
 
@@ -292,7 +295,17 @@ DolphinViewを動作させたまま、マルチセンサーのLEARNボタンを�
 
 - 取り扱い説明書
 
+    [E-Kitゲートウェイ開発キット](https://devdrv.github.io/E-Kit-Gateway-Manual/){:target="_blank"}<br/>
     https://devdrv.github.io/E-Kit-Gateway-Manual/
+
+- デモ
+
+    * ログイン
+    * EnOcean デバイスのモニター
+    * EnOcean デバイスの登録
+    * EnOcean デバイスの運用
+    * 運用ログ機能
+    * その他（システム管理、ファームウェア更新）
 
 <br/>
 
@@ -339,27 +352,37 @@ Usage: dpride [-m|-r|-o][-c][-v]
 
 ### 全体構造
 
-ディレクトリ
-
-dprideは、EnOcean テレグラムを受信して解釈し、他のサービスへデータを受け渡すゲートウェイ機能を持ちます。EnOcean の各デバイスは★EURID(ID)と、EEP(EnOcean Equipmet Profile) または、GP(Generic Profile) と呼ぶアプリケーション層のプロファイルを持つため、実際の業務で使用するためには、ゲートウェイ側でこれらを解釈、管理するための仕組みが必要です。またセキュリティテレグラムを解釈するためには、公開キーを管理する必要があります。
-
-ブリッジファイル
-
-コントロールファイル
-
-EEP/GP 対応
-
+dpride と関連プログラム、データの構造の概要を簡単に説明します。
 
 <br/>
 
-図ざああああ
+#### 管理ディレクトリ
+
+dprideは、EnOcean テレグラムを受信して解釈し、他のサービスへデータを受け渡すゲートウェイ機能を持ちます。EnOcean の各デバイスは EURID(EnOcean Unique Radio Identifir, EnOcean ID)と、EEP(EnOcean Equipmet Profile) または、GP(Generic Profile) と呼ぶアプリケーション層のプロファイルを持つため、実際の業務で使用するためには、ゲートウェイ側でこれらを解釈、管理するための仕組みが必要です。またセキュリティテレグラムを解釈するためには、公開キーを管理する必要があります。dprideではこれらの管理データを **/var/tmp/dpride** ディレクトリ以下に保存しています。
+
+<br/>
+
+#### ブリッジファイル
+
+Bridge File とは、ゲートウェイが受信したデバイスの各データを各BROKER プログラムに受け渡すためのデータファイルです。
+ユニークなデータポイント名を持つ各テキストファイルに、dprideが「-999.99」形式の数字文字列でデータを記述し、各ブローカープログラムがその値を読み取って利用します。各ブローカープログラムは、Signalでブリッジファイルが書き換えられたことを知ることができます。
+
+#### コントロールファイル
+
+Teach-Inで登録済の各デバイスのEURID, EEPまたはGP, 全データポイント名（Bridge File名）を管理する、CSV形式のファイルです。このコントロールファイルにより、各IDのデバイスがどのようなプロファイル(EEP/GP)を持ち、どのようなデータポイントを持つかを知ることができます。
+
+<br/>
+
+ゲートウェイシステム全体の構造図を以下に示します。
+
+<br/>
 
 [![Dolphin Ride ゲートウェイ システム全体構造図](image/DPRIDE_50.png)](image/DPRIDE.png)
 
 <br/>
 
 ### 参考：インターフェース誌の解説
-本プログラム開発の経緯と初期バージョンの解説は、下記のインターフェース誌に掲載されています。
+本プログラム開発の経緯と初期バージョンの解説は、下記のインターフェース誌にも掲載されています。
 
 ![参考：インターフェース誌](image/IF2017-11.jpg)]
 ##### 写真：インターフェース 2017年11月号
@@ -374,35 +397,55 @@ EEP/GP 対応
 
 準備で使用するのは 16.04以降の ubuntu Linux または raspbian 搭載の Raspberry Pi です。ストレージの空き容量は1GB程度あれば十分です。必要なツールやライブラリをインストールすることが出来れば、RedHat等の他のLinux環境も利用可能です。
 
+まずは以下のコマンドでビルドや以降のテストに必要なツールとライブラリをインストールします。★node.js??★
+
 ```sh
 $ sudo apt install -y git gcc make build-essential net-tools libxml2-dev
 ```
 
 <br/>
 
-### 環境に合わせたライブラリの用意
+### ソフトウェアの入手
 
-**dpride** は EnOcean Alliance の **IP（知的財産）** 利用ポリシーのため、全ソースコードは一般公開していません。
-一部の機能はバイナリーのライブラリで公開しているので、それを利用します。従って使用する **ABI(Application Binary Interface** に合致したライブラリを事前にインストールする必要があります。ライブラリのインストール手順は次の通りです。
-
-★要検証★
+任意の作業ディレクトリで、次のコマンドを実行して今回の実習で使用するソフトウェアを入手します。
 
 ```sh
-$ cd eolib
-$ make `arch`
+$ git clone https://github.com/ahidaka/EnOceanGateways.git
 ```
+<br/>
 
-注意：**arch** は現在実行中のマシンアーキテクチャを表示するコマンドで、上記はこれを **Back Quote (`)**　で呼び出しています。現在のライブラリが用意しているアーキテクチャは、x86_64, amnv7l, aarch64 だけです。
+- 参考：EnOcean Gateways ページ (GitHub)<br/>
+    https://github.com/ahidaka/EnOceanGateways
 
 <br/>
 
-### ビルドと動作確認
+### 環境に合わせたライブラリの用意
+
+**dpride** は EnOcean Alliance の **IP（知的財産）** 利用ポリシーのため、全ソースコードは一般公開していません。
+
+一部の機能はバイナリーのライブラリで公開しているので、それを利用します。従って使用する **ABI(Application Binary Interface)** に合致したライブラリを事前にインストールする必要があります。ライブラリのインストール手順は次の通りです。
+
+```sh
+$ cd eolib
+$ make
+```
+
+- 注意<br/>
+上記コマンドでマシンアーキテクチャに合致するライブラリをコピーしてインストールします。<br/>
+現在のライブラリが用意しているアーキテクチャは、次の通りです。<br/>
+* x86_64 (x64対応の一般的なPC)
+* amnv7l (Raspbian 等のARM 32bit OS)
+* aarch64 (Ubuntu 64bit 等のARM 64bit OS)
+
+<br/>
+
+### ビルド
 
 用意したターゲットホスト環境にゲートウェイソフトウェアのソースコードをインストールして動作確認します。
 
 もしUSB400Jを2個持っている方は、同時に Windows PC のDolphinView Advanced の動作と比べる事ができます。
 
-#### ビルド
+- ビルド<br/>
 次の様に、dprideのディレクトリへ行って、**make** コマンド実行でビルドが完了し、**.\dpride** が作成されます。
 
 ```sh
@@ -410,7 +453,7 @@ $ cd ../dpride
 $ make
 ```
 
-#### マルチセンサーの登録
+### マルチセンサーの登録
 dprideの動作モードは次の三種類があり、起動時のパラメータで設定します。
 
 #### dprideの動作モード
@@ -446,8 +489,9 @@ $ make
 ## ブローカープログラムの開発
 ---
 
-### ゲートウェイシステムの構成
+### ブローカープログラムの事例
 
+### ブローカープログラムのインターフェース
 
 
 
