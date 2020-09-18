@@ -762,11 +762,24 @@ O:09/18/20 07:57:26,04117EC8,D2-14-41,TP=30.50℃ HU=47.00% IL=83.00lx AS=1 AX=0
 dpride ビルド時に同時にビルドされているため、あらためてビルドする必要はありません。
 ただし **Sigal** を通知するPIDを受け渡しするため、**dpride** の起動前に、**sample-broker** を起動しておく必要があります。
 
-### 事例：jclient
+全体で171行、受信データを処理するループ部分は20行程度のプログラムなので、応用し易いと思います。しかしこのインターフェースは2017年開発着手当時のままのため、**日付情報**, **データ表示単体**, **電波強度** が取り扱い出来ないという決定があります。
 
-#### 起動方法
+取り扱いデータはファイル受け渡しのため、**dpride** と同じ環境で起動する必要があります。
+
+<br/>
+
+#### sample-broker 起動方法
 
 ```sh
+$ sudo ./sample-broker
+```
+
+<br/>
+
+#### dpride 起動方法
+
+```sh
+$ sudo ./dpride -o
 ```
 
 <br/>
@@ -774,15 +787,43 @@ dpride ビルド時に同時にビルドされているため、あらためて�
 #### 出力例
 
 ```sh
+PID=15567 file=/var/tmp/dpride/azure.pid proker=/var/tmp/dpride/brokers.txt
+nodeCount = 1
+>>>0
+0: 0: 04117EC8 [D2-14-41] <TP><Multi Function Sensors> <30.20>
+0: 1: 04117EC8 [D2-14-41] <HU><Multi Function Sensors> <43.50>
+0: 2: 04117EC8 [D2-14-41] <IL><Multi Function Sensors> <28.00>
+0: 3: 04117EC8 [D2-14-41] <AS><Multi Function Sensors> <1>
+0: 4: 04117EC8 [D2-14-41] <AX><Multi Function Sensors> <0.34>
+0: 5: 04117EC8 [D2-14-41] <AY><Multi Function Sensors> <-0.08>
+0: 6: 04117EC8 [D2-14-41] <AZ><Multi Function Sensors> <0.95>
+0: 7: 04117EC8 [D2-14-41] <CO><Multi Function Sensors> <0>
 ```
 
 <br/>
 
 ### 事例：jclient
 
-#### 起動方法
+**jclient** は新しく実装した、JSON データサーバー用クライアントのC言語の事例で、実態は単なるソケット通信クライアントです。動作確認用に用意しましたが、実際の開発ではNode.jsなど、より開発し易いツールを使うことを想定しています。dpride ビルド時に同時にビルドされているため、あらためてビルドする必要はありません。
+
+**dpride** の起動は、**-j** オプションで **JSON** サーバー機能を有効にしたオプションで起動する必要があります。、また **dpride** が Socket サーバーとなるため、**dpride** を先に起動しておく必要があります。前述の **sample-broker** の様に、起動時に **sudo** を付けて管理者モードで起動する必要はなく、
+、**日付情報**, **データ表示単体**, **電波強度** の取り扱いが可能です。
+
+しかし一般的なTCP Socketを使用した実装のため、セキュリティ面は考慮していません。デフォルトは
+TCP Port 8000番で、待ち受けしています。
+
+#### dpride 起動方法
 
 ```sh
+$ sudo ./dpride -o -j
+```
+
+<br/>
+
+#### jclient 起動方法
+
+```sh
+$ ./jclient
 ```
 
 <br/>
@@ -790,6 +831,62 @@ dpride ビルド時に同時にビルドされているため、あらためて�
 #### 出力例
 
 ```sh
+{
+  "dataTelegram" : {
+    "deviceId" : "04117EC8",
+    "friendlyId" : "Multi Function Sensors",
+    "direction" : "from",
+    "security" : "0",
+    "profile" : "D2-14-41",
+    "timestamp" : "09/18/20 09:10:44",
+    "functions" : [
+      {
+        "key" : "TP",
+        "value" : "30.10",
+        "unit" : "℃"
+      },
+      {
+        "key" : "HU",
+        "value" : "44.00",
+        "unit" : "%"
+      },
+      {
+        "key" : "IL",
+        "value" : "24.00",
+        "unit" : "lx"
+      },
+      {
+        "key" : "AS",
+        "value" : "1",
+        "unit" : ""
+      },
+      {
+        "key" : "AX",
+        "value" : "0.01",
+        "unit" : "g"
+      },
+      {
+        "key" : "AY",
+        "value" : "0.02",
+        "unit" : "g"
+      },
+      {
+        "key" : "AZ",
+        "value" : "1.02",
+        "unit" : "g"
+      },
+      {
+        "key" : "CO",
+        "value" : "0",
+        "unit" : ""
+      }
+    ],
+    "telegramInfo" : {
+      "dbm" : -73,
+      "rorg" : "D2"
+    }
+  }
+}
 ```
 
 <br/>
