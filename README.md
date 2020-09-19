@@ -69,7 +69,7 @@ EnOcean Seminar textbook in 2020 volume 2
 
 - ブローカープログラムの開発
 
-- NFCによるセンサーの設定書き換えとQ&A
+- NFCによるセンサーの設定とQ&A
 
 <br/>
 
@@ -888,11 +888,209 @@ $ ./jclient
   }
 }
 ```
+<br/>
+
+---
+## Node.js アプリケーション（オプション）
+---
+アプリケーションの開発がよりし易い様に、Node.js アプリケーションのサンプルをいくつか用意しています。
+Node.jsは簡単で使い易いツールですが、バージョンアップが頻繁にあり、またインストール先もかなり自由度があることから、古いインストールが残っていた場合等、時として正しく動作する環境をインストール（構築）するのが難しい場合があります。
+
+その様な観点と、時間的な制約からこの項はオプション扱いとします。セミナー中に動作させることが出来ない場合は、後日試して下さい。
+
+### インストール
+Node.jsのインストールは一般的に **npm** というパッケージマネージャーを使用します。インストール先は **-g** オプションを付けてグローバル（システム）にインストールする場合と、ローカルにインストールする場合があります。ここでは、 グローバル（システム）にインストールする事例で紹介します。
+
+```sh
+$ sudo apt install -y nodejs npm
+$ sudo npm install -g npm
+
+$ sudo npm install -g express
+$ sudo npm install -g views
+$ sudo npm install -g ejs
+$ sudo npm install -g fs
+$ sudo npm install -g ip
+```
+
+環境によっては、グローバル（システム）にインストールしてもパッケージを発見しない場合があるため、
+実行時にエラーとなる場合は下記の通り、ローカルにもインストールします。
+
+```sh
+$ sudo npm install -g express
+$ sudo npm install -g views
+$ sudo npm install -g ejs
+$ sudo npm install -g fs
+$ sudo npm install -g ip
+```
 
 <br/>
 
-## NFCによるセンサーの設定書き換えとQ&A
+### jsclient
 
+前項の **jclient** では、C言語によるJSON データサーバー用クライアントの事例を試しましたが、Node.js を使用することで、より簡単にJSON データを扱うことができます。以下の事例を紹介します。
+- app.js
+    単に受信したJSON データを表示するだけの単純なプログラムです。**jclient** と同じ動作です。
+
+- app2.js
+    単に受信したJSON データを **JSON.parse** 関数で展開して表示するプログラムです。
+
+- app3.js
+    **JSON.parse** の結果を **Javascript** の変数取り込んで、表示するプログラムです。Javascript でのJSONデータの取り扱いが簡単なことがわかります。
+
+#### dpride 起動方法
+
+いずれを試す場合でも、**-j** オプション付で先に起動します。
+
+```sh
+$ sudo ./dpride -o -j
+```
+<br/>
+
+#### jsclient (app.js) 起動方法
+
+dprideとは 別のシェルから起動してください。
+
+```sh
+$ cd ../jsclient 
+$ sudo node ./app.js
+```
+
+<br/>
+
+#### 出力例
+jclient 全く同じなので、省略します。
+
+<br/>
+
+#### jsclient (app2.js) 起動方法
+
+dprideとは 別のシェルから起動してください。
+
+```sh
+$ sudo node ./app2.js
+```
+
+<br/>
+
+#### 出力例
+
+```sh
+{ deviceId: '04117EC8',
+  friendlyId: 'Multi Function Sensors',
+  direction: 'from',
+  security: '0',
+  profile: 'D2-14-41',
+  timestamp: '09/19/20 11:56:39',
+  functions:
+   [ { key: 'TP', value: '33.70', unit: '℃' },
+     { key: 'HU', value: '47.00', unit: '%' },
+     { key: 'IL', value: '15.00', unit: 'lx' },
+     { key: 'AS', value: '1', unit: '' },
+     { key: 'AX', value: '0.08', unit: 'g' },
+     { key: 'AY', value: '0.16', unit: 'g' },
+     { key: 'AZ', value: '0.99', unit: 'g' },
+     { key: 'CO', value: '1', unit: '' } ],
+  telegramInfo: { dbm: -61, rorg: 'D2' } }
+```
+
+<br/>
+
+#### jsclient (app3.js) 起動方法
+
+dprideとは 別のシェルから起動してください。
+
+```sh
+$ cd ../jsclient 
+$ sudo node ./app3.js
+```
+
+<br/>
+
+#### 出力例
+
+```sh
+04117EC8 D2-14-41
+  key=TP value=28.00 unit=℃
+  key=HU value=53.50 unit=%
+  key=IL value=43.00 unit=lx
+  key=AS value=1 unit=
+  key=AX value=-0.10 unit=g
+  key=AY value=0.75 unit=g
+  key=AZ value=0.67 unit=g
+  key=CO value=0 unit=
+```
+
+<br/>
+
+
+
+### wsclient
+
+webscket サーバー用クライアントのサンプルです。<br/>
+
+dprideを **-l** オプション付で起動すると、webscket サーバー機能を提供します。デフォルトでは標準出力画面への運用情報は出力しなくなり、代わりに同じ情報をwebscketに出力します。
+
+サンプルのwebscketクライアントを用意したので、それを使用して動作を検証します。動作手順は次の通りです。
+
+- dpride 起動
+- wsclient 起動
+- ブラウザでHostにアクセス
+
+#### dpride 起動方法
+
+**-l** オプション付で起動します。
+
+```sh
+$ sudo ./dpride -o -l
+```
+
+<br/>
+
+#### wsclient 起動方法
+
+dprideとは 別のシェルから起動してください。
+
+```sh
+$ cd ../wsclient 
+$ sudo node ./app.js
+```
+<br/>
+
+#### 出力例
+
+```sh
+Starting...
+OK
+Server on http://:::80
+GET
+MYADDR: req.connection.remote=::ffff:192.168.51.12
+MYADDR: req.socket.remote=::ffff:192.168.51.12
+target=<::ffff:192.168.51.12>
+MYADDR: temps<["","","ffff","192.168.51.12"]>
+newTarget=<192.168.51.12>
+route=<default via 192.168.51.1 dev eth0 src 192.168.51.205 metric 202
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown
+172.18.0.0/16 dev br-5a85f466bdca proto kernel scope link src 172.18.0.1 linkdown
+192.168.51.0/24 dev eth0 proto kernel scope link src 192.168.51.205 metric 202
+192.168.249.0/24 dev eth0 proto kernel scope link src 192.168.249.249
+224.0.0.0/4 dev eth0 scope link
+>
+MYADDR(0): line<default via 192.168.51.1 dev eth0 src 192.168.51.205 metric 202 >
+MYADDR(0): line<172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown >
+MYADDR(0): lines<{"cidr":"172.17.0.0/16","maskBit":16}>temps<["172.17.0.0","16"]>
+```
+
+<br/>
+
+#### 出力画面例
+ブラウザで、**dpride** のIPアドレスに接続すると、次の様な画面が表示されます。
+
+[![websocketサーバー表示例](image/wsclient_50.png)](image/wsclient.png)
+
+<br/>
+---
+## NFCによるセンサーの設定とQ&A
+---
 <br/>
 
 以上。
