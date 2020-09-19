@@ -545,7 +545,7 @@ $ git clone https://github.com/ahidaka/EnOceanGateways.git
 そのためビルド前に、使用する **ABI(Application Binary Interface)** に合致したライブラリを事前にインストールする必要があります。次の手順で、入手した EnOceanGateways プロジェクトからライブラリをインストールします。
 
 ```sh
-$ cd EnOceanGateways/DolpninRide
+$ cd EnOceanGateways/DolninRide
 $ cd eolib
 $ make
 ```
@@ -661,7 +661,16 @@ $ sudo ./dpride -r
 ```
 
 起動後マルチセンサーで次の操作を行って、メッセージ出力を確認します。
-出力確認後、**コントロールC** で終了して、 **/var/tmp/dpride/eofilter.txt** のコントロールファイルの登録内容を確認します。
+出力確認後、**コントロールC** で終了して、**/var/tmp/dpride/eofilter.txt** のコントロールファイルの登録内容を確認します。
+
+<br/>
+
+- 参考：古い登録情報の削除<br/>
+  登録済の古いデバイスの情報を削除する場合、次の用に **-c** オプションを付加すると、登録前に全ての古い登録情報を削除します。また、**/var/tmp/dpride/eofilter.txt** ファイルをエディタで直接編集することにより、登録済の情報を自由に変更・削除・追加することが可能です。 
+
+```sh
+$ sudo ./dpride -c -r
+```
 
 <br/>
 
@@ -916,11 +925,11 @@ $ sudo npm install -g ip
 実行時にエラーとなる場合は下記の通り、ローカルにもインストールします。
 
 ```sh
-$ sudo npm install -g express
-$ sudo npm install -g views
-$ sudo npm install -g ejs
-$ sudo npm install -g fs
-$ sudo npm install -g ip
+$ sudo npm install express
+$ sudo npm install views
+$ sudo npm install ejs
+$ sudo npm install fs
+$ sudo npm install ip
 ```
 
 <br/>
@@ -1088,9 +1097,11 @@ MYADDR(0): lines<{"cidr":"172.17.0.0/16","maskBit":16}>temps<["172.17.0.0","16"]
 [![websocketサーバー表示例](image/wsclient_50.png)](image/wsclient.png)
 
 <br/>
+
 ---
 ## NFCによるセンサーの設定とQ&A
 ---
+
 <br/>
 
 以上。
