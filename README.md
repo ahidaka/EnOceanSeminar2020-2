@@ -23,6 +23,12 @@ EnOcean IoTシステム開発コンテスト！meet up 実習用テキスト
 
 <br/>
 
+### [サブページ：EnOcean パケットフォーマット](enocean-format.md)
+
+- GitHub Page<br/>
+    https://ahidaka.github.io/EnOceanSeminar2020-2/enocean-format.md
+
+<br/>
 
 ![EnOceanマルチセンサー STM550J](image/stm550jp50.jpg)
 ##### 写真：EnOceanマルチセンサー STM550J
