@@ -54,7 +54,7 @@ EnOcean 通信仕様は随時更新されて来ているため、国やデバイ
 後から ESP3 に追加された仕様のため、ESP3 仕様の前半には出て来ません。注意が必要です。
 なおこの表で **RAW data** と呼ぶ **ERP2 on ESP3** 形式のデータ部の仕様は、ERP2(EnOcean Radio Protol Version 2) 仕様に記載されているデータ部の仕様に従うことになります。
 
-![ERP2 on ESP3 仕様](Image/esp3.png)
+![ERP2 on ESP3 仕様](image/esp3.png)
 
 [参照：EnOcean Radio Protocol 2 (PDF)](https://www.enocean.com/fileadmin/redaktion/pdf/tec_docs/EnOceanRadioProtocol2.pdf)<br/>
 https://www.enocean.com/fileadmin/redaktion/pdf/tec_docs/EnOceanRadioProtocol2.pdf
@@ -134,7 +134,7 @@ ESP3では、単なる受信データの取得のほかに、システムに対�
 
 **TelegramType**（変数名 **telType**） は受信した電波の種別です。EnOcean では通信デバイスの特性に合わせて、最小限度の大きさ、形式の電波フォーマットを使用します。それを区別するのが **TelegramType** です。詳細は、前述 [ERP2仕様書](https://www.enocean.com/fileadmin/redaktion/pdf/tec_docs/EnOceanRadioProtocol2.pdf) の17ページ **4.5 Data contents for Length > 6 Bytes** で解説されている下記の **Header** が該当します。
 
-![ERP2 Header 仕様](Image/erp2-header.png)
+![ERP2 Header 仕様](image/erp2-header.png)
 
 <br/>
 
@@ -162,7 +162,7 @@ ESP3では、単なる受信データの取得のほかに、システムに対�
 
 ここで、次の形式で示される1バイトの **ERP2-Header** は、そのまま **ERP2 on ESP3** の **Telegram Type** となります。
 
-![ERP2 Header 仕様](Image/erp2-header-structure.png)
+![ERP2 Header 仕様](image/erp2-header-structure.png)
 
 <br/>
 
@@ -306,7 +306,7 @@ http://tools.enocean-alliance.org/EEPViewer/
 
 に進みます。そこの **D2-14-41** の行から PDF, XML, 等の各形式で仕様を入手できます。
 
-![D2-14-41 仕様](Image/D2-14-41.png)
+![D2-14-41 仕様](image/D2-14-41.png)
 
 <br/>
 
@@ -413,7 +413,7 @@ https://www.enocean-alliance.org/factsheet-eep/
 
 <br/>
 
-![ビット配置パターン](Image/bit-pattern.png)
+![ビット配置パターン](image/bit-pattern.png)
 
 - Data
 	各データの名称を示します。
