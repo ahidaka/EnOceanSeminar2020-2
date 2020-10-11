@@ -45,7 +45,9 @@ https://www.enocean.com/fileadmin/redaktion/pdf/tec_docs/EnOceanSerialProtocol3.
 
 <br/>
 
+---
 ## EnOcean パケットの概要
+---
 
 EnOcean 通信仕様は随時更新されて来ているため、国やデバイスの導入時期によって仕様に差があります。
 現在の日本国内向け規格の 928.35MHz 1mW 出力に対応するトランシーバーインターフェース仕様（**ESP**）は、詳細には、**ERP2 on ESP3** と呼ぶ2013年に制定された比較的新しい仕様です。
@@ -61,7 +63,9 @@ https://www.enocean.com/fileadmin/redaktion/pdf/tec_docs/EnOceanRadioProtocol2.p
 
 <br/>
 
+---
 ## パケット受信プログラム
+---
 
 ここでは次の DefaultMultiSensor ソリューションに含まれる、**MainWindow.xaml.cs** を題材にして解説します。
 合わせて、参考にしてください。
@@ -74,7 +78,9 @@ https://github.com/ahidaka/EnOceanWindowsSamples/blob/master/DefaultMultiSensor/
 
 <br/>
 
+---
 ## ESP3: ヘッダー入力とCRC計算
+---
 
 パケット受信プログラムのサンプルコードは、前述のESP3仕様書の **3. Appendix** 112ページ、**3.4.2 Get ESP3 Packet** 節で公開されています。
 前述の **MainWindow.xaml.cs** で使用しているシリアルデータ入力部分は、このサンプルの公開前に独自に開発したものがベースになっています。
@@ -122,7 +128,9 @@ CRC8 の計算方法は、前述のESP3仕様書の **3.3 CRC8 calculation** に
 
 <br/>
 
+---
 ## ERP2: PacketType, TelegramType と Originator-ID
+---
 
 **PacketType** は、**Sync. Byte 0x55** を含まずに計算した場合のヘッダーの 3バイト目にある、このパケットの内容・目的を示す区分です。
 ESP3では、単なる受信データの取得のほかに、システムに対するコマンドの送受信、データ送信とそのレスポンス、システムからのイベント通知といったメッセージを扱います。
@@ -227,7 +235,9 @@ ESP3では、単なる受信データの取得のほかに、システムに対�
 
 <br/>
 
+---
 ## 電波強度
+---
 
 電波強度は、USB400Jなどのトランシーバーが電波を受信した時に観測した、電波の強さです。
 
@@ -252,7 +262,9 @@ ESP3では、単なる受信データの取得のほかに、システムに対�
 
 <br/>
 
+---
 ## EEP
+---
 
 そのデバイスが何であるか？どの様なセンサーを持ち、それぞれのセンサーの特性やデータの最大値、最小値、解像度（データの粒度）、
 テレグラム中でのビット表現といったEnOcean デバイスのアプリケーション仕様（プロファイル）を詳細に規定しているが、**EEP(EnOpen Equipment Profile)** です。
@@ -291,7 +303,9 @@ http://tools.enocean-alliance.org/EEPViewer/
 
 <br/>
 
+---
 ## マルチセンサー EEP: D2-14-41
+---
 
 **D2-14-41** のEEP仕様は、
 
@@ -650,7 +664,9 @@ ShortCut はデータ種別を示す、**短い名前** です。以前のEEP定
 
 <br/>
 
+---
 ## Teach-In / UTE
+---
 
 **Teach-In テレグラム** はEnOceanセンサーデバイスの **LEARNボタン** を押すと送信される、プロファイル情報です。
 各デバイス種別（**RORG**）毎に、[EEP仕様](https://www.enocean-alliance.org/eep/)の17ページ **3.2 Teach-In**　送信方法が規定されています。
@@ -672,7 +688,9 @@ Manufacture IDは、EnOcean Allianceに登録済のデバイス製造元メー�
 
 <br/>
 
+---
 ## 仕様書 まとめ
+---
 
 Knowledge Base & System Specification
 https://www.enocean.com/en/support/knowledge-base/
