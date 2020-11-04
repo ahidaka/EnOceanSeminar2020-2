@@ -5,7 +5,7 @@
 EnOcean IoTシステム開発コンテスト！meet up 実習用テキスト
 
 - GitHub Page<br/>
-    https://ahidaka.github.io/EnOceanSeminar2020-2
+    https://ahidaka.github.io/EnOceanSeminar2020-2/
 
 <br/>
 
@@ -19,14 +19,28 @@ EnOcean IoTシステム開発コンテスト！meet up 実習用テキスト
 ### [サブページ：node.js セットアップ](nodejs-setup.md)
 
 - GitHub Page<br/>
-    https://ahidaka.github.io/EnOceanSeminar2020-2/nodejs-setup.md
+    https://ahidaka.github.io/EnOceanSeminar2020-2/nodejs-setup.html
 
 <br/>
 
 ### [サブページ：EnOcean パケットフォーマット](enocean-format.md)
 
 - GitHub Page<br/>
-    https://ahidaka.github.io/EnOceanSeminar2020-2/enocean-format.md
+    https://ahidaka.github.io/EnOceanSeminar2020-2/enocean-format.html
+
+<br/>
+
+### [サブページ：Python-sample](python-sample.md)
+
+- GitHub Page<br/>
+    https://ahidaka.github.io/EnOceanSeminar2020-2/python-sample.html
+
+<br/>
+
+### [サブページ：Epoch-sample](epoch-sample.md)
+
+- GitHub Page<br/>
+    https://ahidaka.github.io/EnOceanSeminar2020-2/epoch-sample.html
 
 <br/>
 
