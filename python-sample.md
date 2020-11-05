@@ -93,7 +93,7 @@ from enocean.communicators.communicator import Communicator
 としていて、これが原因で元の **Packetクラス** を外すことがどうしても出来ませんでした。
 やむを得ず **import** 文を書き換えた、 **communicator.py** と **serialcommunicator.py** ソースコードに含めています。
 
-私が改造した **packet.py** をPLしてkipe氏に取り込んで貰えばいいのですが、面倒そうなのと **pymulti.py** が一部未完成なため、PLは躊躇しています。
+私が改造した **packet.py** をPLしてkipe氏に取り込んで貰えばいいのですが、面倒そうなのと **pymulti.py** が一部未完成なため、Pull Request は今のところ保留しています。
 どなたか、もし既存パッケージの **import** 内容やクラスを上書き変更する方法をご存知でしたら教えて下さい。
 
 <br/>
