@@ -5,7 +5,7 @@
 EnOcean IoTシステム開発コンテスト！meet up：EnOcean Packet Format
 
 - GitHub Page<br/>
-    https://ahidaka.github.io/EnOceanSeminar2020-2/enocean-format.md
+    https://ahidaka.github.io/EnOceanSeminar2020-2/enocean-format.html
 
 <br/>
 

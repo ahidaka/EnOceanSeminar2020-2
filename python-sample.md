@@ -6,7 +6,7 @@
 EnOcean IoTシステム開発コンテスト！meet up： Python サンプル
 
 - GitHub Page<br/>
-    https://ahidaka.github.io/EnOceanSeminar2020-2/python-sample.md
+    https://ahidaka.github.io/EnOceanSeminar2020-2/python-sample.html
 
 <br/>
 

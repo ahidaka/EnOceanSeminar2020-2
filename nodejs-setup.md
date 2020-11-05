@@ -5,7 +5,7 @@
 EnOcean IoTシステム開発コンテスト！meet up：node.js セットアップ
 
 - GitHub Page<br/>
-    https://ahidaka.github.io/EnOceanSeminar2020-2/nodejs-setup.md
+    https://ahidaka.github.io/EnOceanSeminar2020-2/nodejs-setup.html
 
 <br/>
 
